@@ -1,5 +1,13 @@
 import { Text } from "react-native";
 
+const customTextProps = {
+  style: {
+    fontSize: 28,
+    fontFamily: 'rockWell',
+    color: 'white'
+  }
+};
+
 setCustomText = (customProps) => {
     const TextRender = Text.render
     const initialDefaultProps = Text.defaultProps
@@ -18,8 +26,8 @@ setCustomText = (customProps) => {
     }
   }
   
-  const loadGlobalProps = (props) => {
-    setCustomText(props)
+  const loadGlobalProps = () => {
+    setCustomText(customTextProps)
   }
 
   export default loadGlobalProps

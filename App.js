@@ -3,46 +3,40 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
-import { View, Text } from "react-native";
-import MainScreen from "./components/MainScreen";
-import { useFonts } from "expo-font";
+import Main from "./screens/Main";
 import loadGlobalProps from "./utils/customText";
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
+import { ThemeContextProvider } from "./themeProvider";
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  // Load Global Fonts
   const [loaded, error] = useFonts({
     alfaSlab: require("./assets/fonts/AlfaSlabOne-Regular.ttf"),
     rockWell: require("./assets/fonts/rock.ttf"),
   });
-
+  // If fonts aren't loaded force splash screen to continue
   if (!loaded) {
-    return null;
+    return <AppLoading />;
   }
 
-  // const customText = {
-  //   style: {
-  //     fontSize: 76,
-  //     fontFamily: "rockWell",
-  //     color: "red",
-  //   },
-  // };
-
-  // loadGlobalProps(customText);
+  // Run customText to set Global text default
+  loadGlobalProps();
 
   return (
-    <NavigationContainer>
-      <StatusBar style="light" />
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name="Home" component={MainScreen} />
-        {/* <View style={{ flex: 1 }}>
-          <MainScreen />
-        </View> */}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ThemeContextProvider>
+      <NavigationContainer>
+        <StatusBar style="light" />
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="Main" component={Main} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeContextProvider>
   );
 }
