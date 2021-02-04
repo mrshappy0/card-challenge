@@ -1,21 +1,48 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import "react-native-gesture-handler";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { StatusBar } from "expo-status-bar";
+import { View, Text } from "react-native";
+import MainScreen from "./components/MainScreen";
+import { useFonts } from "expo-font";
+import loadGlobalProps from "./utils/customText";
+
+const Stack = createStackNavigator();
 
 export default function App() {
+  const [loaded, error] = useFonts({
+    alfaSlab: require("./assets/fonts/AlfaSlabOne-Regular.ttf"),
+    rockWell: require("./assets/fonts/rock.ttf"),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
+  // const customText = {
+  //   style: {
+  //     fontSize: 76,
+  //     fontFamily: "rockWell",
+  //     color: "red",
+  //   },
+  // };
+
+  // loadGlobalProps(customText);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <StatusBar style="light" />
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="Home" component={MainScreen} />
+        {/* <View style={{ flex: 1 }}>
+          <MainScreen />
+        </View> */}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
