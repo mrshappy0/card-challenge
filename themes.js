@@ -59,17 +59,23 @@ const globalStyles = StyleSheet.create({
     bottom: "5%",
     alignSelf: "flex-end",
   },
-  reset: {
+  outline: {
     backgroundColor: "transparent",
     borderRadius: 14,
     borderColor: "rgb(239, 206, 75)",
     borderWidth: 2,
   },
-  resetText: {
+  outlineText: {
     color: "rgb(239, 206, 75)",
     fontFamily: "rockWell",
     fontSize: 28,
     paddingHorizontal: 20,
+  },
+  //Play Again Button
+  againContainer: {
+    position: "absolute",
+    bottom: "20%",
+    alignSelf: "center",
   },
 
   //Card
@@ -81,9 +87,11 @@ const globalStyles = StyleSheet.create({
     backgroundColor: "rgb(255, 255, 255)",
     borderRadius: 4,
     flexDirection: "column",
+    marginHorizontal: 5,
   },
   cardText: {
-    fontSize: 47,
+    fontSize: 32,
+    color: "rgb(0, 0, 0)",
   },
 });
 
