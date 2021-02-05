@@ -1,12 +1,13 @@
 import "react-native-gesture-handler";
 import React, { useReducer } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Button } from "react-native-elements";
 import Card from "../components/Card";
 import { withTheme } from "../themeProvider";
 import GameStatusBox from "../subComponents/GameStatusBox";
 
+//Built Deck and Shuffle.
 const deckOfCards = () => {
   let deck = [];
   let suits = ["spades", "diamonds", "clubs", "hearts"];
@@ -52,31 +53,41 @@ const deckOfCards = () => {
   return {
     deckOfCards: deck.slice(5, deck.length),
     cardsOnDeck: deck.slice(0, 5),
+    winner: false,
   };
-  // return deck
 };
 
+//Build initial reset for reset/replay.
 const initialState = deckOfCards();
 
-function reducer(state, action) {
+// Reducer for complex state manipulation. Switch for cleaner code.
+const reducer = (state, action) => {
+  let currentState = state;
   switch (action.type) {
     case "dealFive":
       if (state.deckOfCards.length === 2) {
         return {
+          ...currentState,
           deckOfCards: [],
           cardsOnDeck: state.deckOfCards.slice(0, 2),
         };
       }
       return {
+        ...currentState,
         deckOfCards: state.deckOfCards.slice(5, state.deckOfCards.length),
         cardsOnDeck: state.deckOfCards.slice(0, 5),
       };
     case "reset":
       return initialState;
+    case "checkWin":
+      state.deckOfCards.length === 0 &&
+      state.cardsOnDeck.filter((card) => card.Value === "A")
+        ? { ...state, winner: true }
+        : state;
     default:
       state;
   }
-}
+};
 
 const Main = ({ themes }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -89,6 +100,7 @@ const Main = ({ themes }) => {
         style={themes.background}
       />
       <GameStatusBox deck={state.deckOfCards} />
+      {state.winner ? <Text>You won!!!!</Text> : null}
       <View style={{ flexDirection: "row" }}>
         {state.cardsOnDeck.map((card, index) => {
           return <Card key={index} card={card} />;
@@ -102,7 +114,10 @@ const Main = ({ themes }) => {
             titleStyle={themes.dealText}
             title="DEAL"
             disabled={state.deckOfCards.length === 0}
-            onPress={() => dispatch({ type: "dealFive" })}
+            onPress={() => {
+              dispatch({ type: "dealFive" });
+              dispatch({ type: "jank" });
+            }}
           />
           <Button
             containerStyle={themes.resetContainer}
@@ -115,7 +130,7 @@ const Main = ({ themes }) => {
         </>
       ) : (
         <Button
-          title="Play Again?"
+          title="Play Again"
           type="outline"
           containerStyle={themes.againContainer}
           buttonStyle={themes.outline}
