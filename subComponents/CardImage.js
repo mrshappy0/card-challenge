@@ -1,5 +1,4 @@
 import React from "react";
-import { Text } from "react-native";
 import Clover from "../assets/Clover.svg";
 import Diamond from "../assets/Diamond.svg";
 import Heart from "../assets/Heart.svg";
@@ -8,10 +7,6 @@ import Spade from "../assets/Spade.svg";
 
 
 const CardImage = ({Suit}) => {
-  // console.log("CardImage",Suit)
-  // return (
-  //   <Text>hey</Text>
-  // )
   switch (Suit) {
     case "hearts":
       return (

@@ -87,7 +87,7 @@ const globalStyles = StyleSheet.create({
     backgroundColor: "rgb(255, 255, 255)",
     borderRadius: 4,
     flexDirection: "column",
-    marginHorizontal: 5,
+    marginHorizontal: 15,
   },
   cardText: {
     fontSize: 32,

@@ -2,7 +2,7 @@ import { Text } from "react-native";
 
 const customTextProps = {
   style: {
-    fontSize: 28,
+    fontSize: 18,
     fontFamily: 'rockWell',
     color: 'white'
   }

@@ -16,6 +16,7 @@ export default function App() {
   const [loaded, error] = useFonts({
     alfaSlab: require("./assets/fonts/AlfaSlabOne-Regular.ttf"),
     rockWell: require("./assets/fonts/rock.ttf"),
+    Courier: require("./assets/fonts/CourierPrime-Bold.ttf"),
   });
   // If fonts aren't loaded force splash screen to continue
   if (!loaded) {

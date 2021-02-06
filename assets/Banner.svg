@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-99 -11.5 217 27">
+    <path d="M -58 -6.5 l -41 0 l 8 11 l -8 11 l 41 0 z" fill="rgb(237, 151, 62)" stroke="rgb(151, 151, 151)"
+        stroke-width="0.1" />
+    <path d="M 57 -6.5 l 41 0 l -8 11 l 8 11 L 57 15.5 z" fill="rgb(237, 151, 62)" stroke="rgb(151, 151, 151)"
+        stroke-width="0.1" />
+    <path d="M 75 -11.5 L -75 -11.5 L -75 11.5 L 75 11.5 z " fill="rgb(237, 151, 62)" stroke="rgb(151, 151, 151)"
+        stroke-width="0.1" />
+    <path d="M -58 15.5 L -75 11.5 L -58 11.5 Z" fill="rgb(161, 90, 13)" />
+    <path d="M 57 15.5 L 75 11.5 L 57 11.5 Z" fill="rgb(161, 90, 13)" />
+</svg>
