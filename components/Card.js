@@ -16,8 +16,13 @@ const Card = ({
   c3y,
   c4x,
   c4y,
+  lastC0x,
+  lastC0y,
+  lastC1x,
+  lastC1y,
   index,
   firstHand,
+  lastHand,
   rotate0,
   rotate1,
   rotate2,
@@ -113,7 +118,35 @@ const Card = ({
     }
   }
 
-  if (!firstHand) {
+  if (lastHand) {
+    switch (index) {
+      case 0:
+        trans0 = {
+          transform: [
+            { translateX: index === 0 ? lastC0x : 0 },
+            { translateY: index === 0 ? lastC0y : 0 },
+            { rotate: 0 },
+          ],
+        };
+        break;
+      case 1:
+        trans1 = {
+          transform: [
+            { translateX: index === 1 ? lastC1x : 0 },
+            { translateY: index === 1 ? lastC1y : 0 },
+            { rotate: 0 },
+          ],
+        };
+        break;
+      default:
+        transDefault = {
+          transform: [{ translateX: 0 }, { translateY: 0 }, { rotate: 0 }],
+        };
+        break;
+    }
+  }
+
+  if (!firstHand && !lastHand) {
     switch (index) {
       case 0:
         trans0 = {

@@ -48,6 +48,7 @@ const deckOfCards = () => {
     cardsOnDeck: deck.slice(0, 5),
     winner: false,
     firstHand: true,
+    lastHand: false,
   };
 };
 
@@ -64,6 +65,7 @@ const reducer = (state, action) => {
         return {
           ...currentState,
           firstHand: false,
+          lastHand: true,
           deckOfCards: [],
           cardsOnDeck: state.deckOfCards.slice(0, 2),
         };
@@ -71,6 +73,7 @@ const reducer = (state, action) => {
       return {
         ...currentState,
         firstHand: false,
+        lastHand: false,
         deckOfCards: state.deckOfCards.slice(5, state.deckOfCards.length),
         cardsOnDeck: state.deckOfCards.slice(0, 5),
       };
@@ -88,6 +91,12 @@ const reducer = (state, action) => {
 
 const Main = ({ themes }) => {
   const [state, dispatch] = useReducer(reducer, initialState, resetDeck);
+  const lastC0y = useRef(new Animated.Value(-580)).current;
+  const lastC0x = useRef(new Animated.Value(40)).current;
+
+  const lastC1y = useRef(new Animated.Value(-580)).current;
+  const lastC1x = useRef(new Animated.Value(-40)).current;
+
   const c0y = useRef(new Animated.Value(-580)).current;
   const c0x = useRef(new Animated.Value(100)).current;
 
@@ -109,123 +118,157 @@ const Main = ({ themes }) => {
   const rotate3 = useRef(new Animated.Value(0)).current;
   const rotate4 = useRef(new Animated.Value(0)).current;
 
-  function moveC0() {
-    c0y.setValue(-580);
-    c0x.setValue(100);
-    rotate0.setValue(0);
+  function lastMoveC0() {
+    lastC0x.setValue(40);
+    lastC0y.setValue(-580);
     Animated.parallel([
-      Animated.timing(rotate0, {
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: true,
-      }),
-      Animated.timing(c0y, {
-        toValue: -10,
-        duration: 1000,
-        useNativeDriver: true,
-      }),
-      Animated.timing(c0x, {
+      Animated.timing(lastC0y, {
         toValue: 0,
-        duration: 1000,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+      Animated.timing(lastC0x, {
+        toValue: 0,
+        duration: 650,
         useNativeDriver: true,
       }),
     ]).start();
   }
+  function lastMoveC1() {
+    lastC1x.setValue(-40);
+    lastC1y.setValue(-580);
+    Animated.parallel([
+      Animated.timing(lastC1y, {
+        toValue: 0,
+        duration: 600,
+        useNativeDriver: true,
+      }),
+      Animated.timing(lastC1x, {
+        toValue: 0,
+        duration: 650,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }
+
+  function moveC0() {
+    c0x.setValue(100);
+    c0y.setValue(-580);
+    rotate0.setValue(0);
+    Animated.parallel([
+      Animated.timing(rotate0, {
+        toValue: 1,
+        duration: 700,
+        useNativeDriver: true,
+      }),
+      Animated.timing(c0y, {
+        toValue: -10,
+        duration: 700,
+        useNativeDriver: true,
+      }),
+      Animated.timing(c0x, {
+        toValue: 0,
+        duration: 750,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }
+
   function moveC1() {
-    c1y.setValue(-580);
     c1x.setValue(80);
+    c1y.setValue(-580);
     rotate1.setValue(0);
     Animated.sequence([
-      Animated.delay(300),
+      Animated.delay(350),
       Animated.parallel([
         Animated.timing(rotate1, {
           toValue: 1,
-          duration: 1000,
+          duration: 800,
           useNativeDriver: true,
         }),
         Animated.timing(c1y, {
           toValue: 10,
-          duration: 1000,
+          duration: 700,
           useNativeDriver: true,
         }),
         Animated.timing(c1x, {
           toValue: 0,
-          duration: 1000,
+          duration: 750,
           useNativeDriver: true,
         }),
       ]),
     ]).start();
   }
   function moveC2() {
-    c2y.setValue(-580);
     c2x.setValue(0);
+    c2y.setValue(-580);
     rotate2.setValue(0);
     Animated.sequence([
-      Animated.delay(400),
+      Animated.delay(450),
       Animated.parallel([
         Animated.timing(rotate2, {
           toValue: 1,
-          duration: 1000,
+          duration: 800,
           useNativeDriver: true,
         }),
         Animated.timing(c2y, {
           toValue: 20,
-          duration: 1000,
+          duration: 700,
           useNativeDriver: true,
         }),
         Animated.timing(c2x, {
           toValue: 0,
-          duration: 1000,
+          duration: 750,
           useNativeDriver: true,
         }),
       ]),
     ]).start();
   }
   function moveC3() {
-    c3y.setValue(-580);
     c3x.setValue(-80);
+    c3y.setValue(-580);
     rotate3.setValue(0);
     Animated.sequence([
-      Animated.delay(500),
+      Animated.delay(550),
       Animated.parallel([
         Animated.timing(rotate3, {
           toValue: 1,
-          duration: 1000,
+          duration: 800,
           useNativeDriver: true,
         }),
         Animated.timing(c3y, {
           toValue: 10,
-          duration: 1000,
+          duration: 700,
           useNativeDriver: true,
         }),
         Animated.timing(c3x, {
           toValue: 0,
-          duration: 1000,
+          duration: 700,
           useNativeDriver: true,
         }),
       ]),
     ]).start();
   }
   function moveC4() {
-    c4y.setValue(-580);
     c4x.setValue(-100);
+    c4y.setValue(-580);
     rotate4.setValue(0);
     Animated.sequence([
-      Animated.delay(600),
+      Animated.delay(650),
       Animated.parallel([
         Animated.timing(rotate4, {
           toValue: 1,
-          duration: 1000,
+          duration: 700,
           useNativeDriver: true,
         }),
         Animated.timing(c4y, {
           toValue: -10,
-          duration: 1000,
+          duration: 700,
           useNativeDriver: true,
         }),
         Animated.timing(c4x, {
           toValue: 0,
-          duration: 1000,
+          duration: 700,
           useNativeDriver: true,
         }),
       ]),
@@ -312,6 +355,10 @@ const Main = ({ themes }) => {
               c3x={c3x}
               c4y={c4y}
               c4x={c4x}
+              lastC0y={lastC0y}
+              lastC0x={lastC0x}
+              lastC1y={lastC1y}
+              lastC1x={lastC1x}
               rotate0={rotate0}
               rotate1={rotate1}
               rotate2={rotate2}
@@ -319,6 +366,7 @@ const Main = ({ themes }) => {
               rotate4={rotate4}
               index={index}
               firstHand={state.firstHand}
+              lastHand={state.lastHand}
             />
           );
         })}
@@ -332,13 +380,21 @@ const Main = ({ themes }) => {
             title="DEAL"
             disabled={deckEmpty}
             onPress={() => {
-              moveC0();
-              moveC1();
-              moveC2();
-              moveC3();
-              moveC4();
-              dispatch({ type: "dealFive" });
-              dispatch({ type: "checkWin" });
+              if (state.deckOfCards.length === 2) {
+                console.log("function switch");
+                dispatch({ type: "dealFive" });
+                lastMoveC0();
+                lastMoveC1();
+                dispatch({ type: "checkWin" });
+              } else {
+                dispatch({ type: "dealFive" });
+                moveC0();
+                moveC1();
+                moveC2();
+                moveC3();
+                moveC4();
+                dispatch({ type: "checkWin" });
+              }
             }}
           />
           <Button
