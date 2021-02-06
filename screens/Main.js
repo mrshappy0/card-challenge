@@ -311,6 +311,17 @@ const Main = ({ themes }) => {
                 zIndex: 2,
               }}
             />
+            <Text
+              style={{
+                position: "absolute",
+                top: "62%",
+                zIndex: 3,
+                fontSize: 42,
+                fontFamily: "rockWell",
+              }}
+            >
+              "Great job! You won the game."
+            </Text>
           </>
         ) : (
           <>
@@ -381,7 +392,6 @@ const Main = ({ themes }) => {
             disabled={deckEmpty}
             onPress={() => {
               if (state.deckOfCards.length === 2) {
-                console.log("function switch");
                 dispatch({ type: "dealFive" });
                 lastMoveC0();
                 lastMoveC1();
