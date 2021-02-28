@@ -1,12 +1,12 @@
 import "react-native-gesture-handler";
-import React, { useReducer, useRef, useState } from "react";
+import React, { useReducer, useRef } from "react";
 import { Animated, View, Text } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { Button } from "react-native-elements";
 import Card from "../components/Card";
 import { withTheme } from "../themeProvider";
 import GameStatusBox from "../subComponents/GameStatusBox";
-import Banner from "../assets/Banner.svg";
+import Banner from "../assets/winner.svg";
+import LinearGrad from "../wrappers/LinearGrad";
 
 //Built Deck and Shuffle.
 const deckOfCards = () => {
@@ -89,8 +89,9 @@ const reducer = (state, action) => {
   }
 };
 
-const Main = ({ themes }) => {
+const Main = ({ themes, navigation }) => {
   const [state, dispatch] = useReducer(reducer, initialState, resetDeck);
+
   const lastC0y = useRef(new Animated.Value(-580)).current;
   const lastC0x = useRef(new Animated.Value(40)).current;
 
@@ -282,73 +283,26 @@ const Main = ({ themes }) => {
 
   return (
     <View style={themes.gameContainer}>
-      <LinearGradient
-        colors={["transparent", "rgba(0,0,0,0.3)", "rgba(0,0,0,1)"]}
-        locations={[0.5, 0.8, 1]}
-        style={themes.background}
+      <LinearGrad />
+      <Button
+        onPress={() => navigation.navigate("MyModal")}
+        title="Open Modal"
       />
-
       {deckEmpty &&
         (winOrLoss ? (
           <>
-            <Text
-              style={{
-                position: "absolute",
-                top: "17.0%",
-                zIndex: 3,
-                fontSize: 90,
-                fontFamily: "Courier",
-                fontWeight: "bold",
-              }}
-            >
-              WINNER!
-            </Text>
-            <Banner
-              style={{
-                position: "absolute",
-                top: "-66.7%",
-                right: "-5%",
-                zIndex: 2,
-              }}
-            />
-            <Text
-              style={{
-                position: "absolute",
-                top: "62%",
-                zIndex: 3,
-                fontSize: 42,
-                fontFamily: "rockWell",
-              }}
-            >
+            <Banner style={themes.banner} />
+            <Text style={themes.winMessage}>
               "Great job! You won the game."
             </Text>
           </>
         ) : (
           <>
-            <Text
-              style={{
-                position: "absolute",
-                top: "32%",
-                zIndex: 3,
-                fontSize: 90,
-                fontFamily: "rockWell",
-              }}
-            >
-              "OH NO!"
-            </Text>
-            <Text
-              style={{
-                position: "absolute",
-                top: "62%",
-                zIndex: 3,
-                fontSize: 42,
-                fontFamily: "rockWell",
-              }}
-            >
-              "Better luck next time."
-            </Text>
+            <Text style={themes.loseBanner}>"OH NO!"</Text>
+            <Text style={themes.winMessage}>"Better luck next time."</Text>
           </>
-        ))}
+        ))
+        }
       <GameStatusBox deck={deck} />
       <View style={{ flexDirection: "row" }}>
         {dealtCards.map((card, index) => {
@@ -391,19 +345,18 @@ const Main = ({ themes }) => {
             title="DEAL"
             disabled={deckEmpty}
             onPress={() => {
+              dispatch({ type: "dealFive" });
+              dispatch({ type: "checkWin" });
               if (state.deckOfCards.length === 2) {
-                dispatch({ type: "dealFive" });
                 lastMoveC0();
                 lastMoveC1();
-                dispatch({ type: "checkWin" });
+                navigation.navigate("MyModal")
               } else {
-                dispatch({ type: "dealFive" });
                 moveC0();
                 moveC1();
                 moveC2();
                 moveC3();
                 moveC4();
-                dispatch({ type: "checkWin" });
               }
             }}
           />

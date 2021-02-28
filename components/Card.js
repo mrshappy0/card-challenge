@@ -202,12 +202,10 @@ const Card = ({
   }
 
   return (
-    // <>
     <Animated.View
       style={[
         { ...themes.cardView },
         {
-          // ...initialTrans,
           ...trans0,
           ...trans1,
           ...trans2,

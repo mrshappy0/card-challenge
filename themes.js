@@ -80,7 +80,7 @@ const globalStyles = StyleSheet.create({
 
   //Card
   cardView: {
-    width: 50,
+    width: 55,
     height: 91,
     alignItems: "center",
     justifyContent: "center",
@@ -92,6 +92,31 @@ const globalStyles = StyleSheet.create({
   cardText: {
     fontSize: 32,
     color: "rgb(0, 0, 0)",
+  },
+
+  //Win Banner
+  banner: {
+    position: "absolute",
+    top: "10%",
+    zIndex: 2000,
+  },
+
+  //Win Message
+  winMessage: {
+    position: "absolute",
+    top: "62%",
+    zIndex: 3,
+    fontSize: 42,
+    fontFamily: "rockWell",
+  },
+
+  //Lose Banner
+  loseBanner: {
+    position: "absolute",
+    top: "32%",
+    zIndex: 3,
+    fontSize: 90,
+    fontFamily: "rockWell",
   },
 });
 
