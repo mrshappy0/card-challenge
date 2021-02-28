@@ -1,15 +1,10 @@
 import "react-native-gesture-handler";
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { StatusBar } from "expo-status-bar";
-import Main from "./screens/Main";
 import loadGlobalProps from "./utils/customText";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import { ThemeContextProvider } from "./themeProvider";
-
-const Stack = createStackNavigator();
+import Root from "./navigation/RootStack";
 
 export default function App() {
   // Load Global Fonts
@@ -28,16 +23,7 @@ export default function App() {
 
   return (
     <ThemeContextProvider>
-      <NavigationContainer>
-        <StatusBar style="light" />
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="Main" component={Main} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Root />
     </ThemeContextProvider>
   );
 }
